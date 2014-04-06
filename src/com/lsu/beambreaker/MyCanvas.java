@@ -45,7 +45,7 @@ public class MyCanvas extends View
 		canvas.drawLines(points, paint);
 		paint.setColor(Color.BLACK);
 		for (int i = 0; i < vIndex; i+=2)
-			canvas.drawCircle(vertices[i], vertices[i+1], 20, paint);
+			canvas.drawCircle(vertices[i], vertices[i+1], 5, paint);
 		super.onDraw(canvas);
 	}
 
@@ -101,27 +101,18 @@ public class MyCanvas extends View
 		this.vertices = new float[30];
 		vIndex = 0;
 		//Pick a line
-		for (int i = 0; i < points.length-4; i+=4)
+		for (int i = 0; i < points.length-3; i+=4)
 		{
 			if (points[i] != -1)
 			{
 				//Pick a different line
-				for (int j = 0; j < points.length-4; j+=4)
+				for (int j = 0; j < points.length-3; j+=4)
 				{
 					if (i!=j && points[j] != -1)
 					{
-						//Check if they intersect
-						//float deltaY1 = points[i+1] - points[i+3];
-						//float deltaX1 = points[i] - points[i+2];
-						//float slope1 = deltaY1/deltaX1;
-						//
-						//float deltaY2 = points[j+1] - points[j+3];
-						//float deltaX2 = points[j] - points[j+2];
-						//float slope2 = deltaY2/deltaX2;
-
 						if (linesIntersect(points[i], points[i+1], points[i+2], points[i+3], points[j], points[j+1], points[j+2], points[j+3]))
 						{
-							Point intersection = getLineLineIntersection(points[i], points[i+1], points[i+3], points[i+4], points[j], points[j+1], points[j+2], points[j+3]);
+							Point intersection = getLineLineIntersection(points[i], points[i+1], points[i+2], points[i+3], points[j], points[j+1], points[j+2], points[j+3]);
 							this.vertices[vIndex++] = intersection.x;
 							this.vertices[vIndex++] = intersection.y;
 						}
