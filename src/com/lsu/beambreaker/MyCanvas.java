@@ -99,6 +99,7 @@ public class MyCanvas extends View
 	public void findVertices(float[] vertices)
 	{
 		this.vertices = new float[30];
+		boolean [][] IJCombos = new boolean[30][30];
 		vIndex = 0;
 		//Pick a line
 		for (int i = 0; i < points.length-3; i+=4)
@@ -108,8 +109,10 @@ public class MyCanvas extends View
 				//Pick a different line
 				for (int j = 0; j < points.length-3; j+=4)
 				{
-					if (i!=j && points[j] != -1)
+					if (i!=j && points[j] != -1 && IJCombos[i][j]==false)
 					{
+						IJCombos[i][j] = true; 
+						IJCombos[j][i] = true;
 						if (linesIntersect(points[i], points[i+1], points[i+2], points[i+3], points[j], points[j+1], points[j+2], points[j+3]))
 						{
 							Point intersection = getLineLineIntersection(points[i], points[i+1], points[i+2], points[i+3], points[j], points[j+1], points[j+2], points[j+3]);
