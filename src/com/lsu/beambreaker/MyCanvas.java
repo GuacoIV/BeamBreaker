@@ -28,7 +28,7 @@ public class MyCanvas extends View
 	{
 		super(context);
 		Random r = new Random();
-		height = getResources().getDisplayMetrics().heightPixels - BeamBreaker.getNavigationBarHeight(context);
+		height = getResources().getDisplayMetrics().heightPixels - BeamBreaker.getNavigationBarHeight(context) - 40;
 		points = new float[]{0, 0, width, height, width/3, 0, width/3 + width/5, height, width, 0, 0, height};
 		findVertices(vertices);
 	}
@@ -91,6 +91,7 @@ public class MyCanvas extends View
 					 }
 				}
 			}
+			findVertices(this.vertices);
 			invalidate();
 		}
 		return super.onTouchEvent(event);
@@ -122,6 +123,30 @@ public class MyCanvas extends View
 					}
 				}
 			}
+		}
+		//Count wall touches as a vertex
+		for (int i = 0; i < points.length-3; i+=4)
+		{
+			if (points[i] == 0 || points[i] == width)
+			{
+				this.vertices[vIndex++] = points[i];
+				this.vertices[vIndex++] = points[i+1];
+			}
+			else if (points[i+1] == 0 || points[i+1] == height)
+			{
+				this.vertices[vIndex++] = points[i];
+				this.vertices[vIndex++] = points[i+1];
+			}
+			if (points[i+2] == 0 || points[i+2] == width)
+			{
+				this.vertices[vIndex++] = points[i+2];
+				this.vertices[vIndex++] = points[i+3];
+			}
+			else if (points[i+3] == 0 || points[i+3] == height)
+			{
+				this.vertices[vIndex++] = points[i+2];
+				this.vertices[vIndex++] = points[i+3];
+			}				
 		}
 	}
 	
