@@ -18,6 +18,7 @@ public class MyCanvas extends View
 	Paint paint = new Paint();
 	public static Context baseContext;
 	public final static int TOUCH_ACCURACY = 7;
+	public final static int NUM_LINES = 3;
 	final int width = getResources().getDisplayMetrics().widthPixels;
 	final int height;
 	float points[];
@@ -29,7 +30,7 @@ public class MyCanvas extends View
 		super(context);
 		Random r = new Random();
 		height = getResources().getDisplayMetrics().heightPixels - BeamBreaker.getNavigationBarHeight(context) - 40;
-		points = new float[]{0, 0, width, height, width/3, 0, width/3 + width/5, height, width, 0, 0, height};
+		points = new float[]{0, 0, width, height, width/3, 0, width/3 + width/5, height, width, 0, 0, height, 0, height - height/7, width, height - height/7};
 		findVertices(vertices);
 	}
 
@@ -46,6 +47,12 @@ public class MyCanvas extends View
 		paint.setColor(Color.BLACK);
 		for (int i = 0; i < vIndex; i+=2)
 			canvas.drawCircle(vertices[i], vertices[i+1], 5, paint);
+		
+		//Draw start and end dots
+		paint.setColor(Color.GREEN);
+		canvas.drawCircle(width - width/3, height/4, 8, paint);
+		paint.setColor(Color.RED);
+		canvas.drawCircle(width/13, height - height/10, 8, paint);
 		super.onDraw(canvas);
 	}
 
@@ -101,6 +108,7 @@ public class MyCanvas extends View
 	{
 		this.vertices = new float[30];
 		boolean [][] IJCombos = new boolean[30][30];
+		int intersectingLines[] = new int[30];
 		vIndex = 0;
 		//Pick a line
 		for (int i = 0; i < points.length-3; i+=4)
@@ -117,7 +125,9 @@ public class MyCanvas extends View
 						if (linesIntersect(points[i], points[i+1], points[i+2], points[i+3], points[j], points[j+1], points[j+2], points[j+3]))
 						{
 							Point intersection = getLineLineIntersection(points[i], points[i+1], points[i+2], points[i+3], points[j], points[j+1], points[j+2], points[j+3]);
+							intersectingLines[vIndex] = i/4;
 							this.vertices[vIndex++] = intersection.x;
+							intersectingLines[vIndex] = j/4;
 							this.vertices[vIndex++] = intersection.y;
 						}
 					}

@@ -15,14 +15,16 @@ import android.widget.RelativeLayout.LayoutParams;
 public class BeamBreaker extends Activity
 {
 	MyCanvas myCanvas;
+	RelativeLayout parentLayout;
+	LayoutParams params;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		myCanvas = new MyCanvas(this);
 		setContentView(R.layout.activity_beam_breaker);
-		RelativeLayout parentLayout = (RelativeLayout) findViewById(R.id.ParentLayout);
-		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		parentLayout = (RelativeLayout) findViewById(R.id.ParentLayout);
+		params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		parentLayout.addView(myCanvas, 0, params);
 		
 
@@ -40,10 +42,13 @@ public class BeamBreaker extends Activity
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	    case R.id.Redraw:
+	        myCanvas = new MyCanvas(this);
+	        parentLayout.removeAllViews();
+	        parentLayout.addView(myCanvas, 0, params);
 	        myCanvas.invalidate();
 	        return true;
 	    }
-		return false;
+		return true;
 	}
 	// navigation bar (at the bottom of the screen)
 	public static int getNavigationBarHeight(Context context) {
