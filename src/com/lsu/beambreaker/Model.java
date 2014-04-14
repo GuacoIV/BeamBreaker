@@ -93,7 +93,8 @@ public class Model
 		
 		for (int i = 0; i < adjList[b].length; i++)
 		{
-			if (adjList[b][i] != a && adjList[b][i] != -1)
+			//Bug: when adjList[b][i] == a, we end up with a duplicate
+			if (adjList[b][i] != -1)
 			{
 				tempAdjList[adjList[a].length + i] = adjList[b][i];
 				tempEdge[edge[a].length + i] = edge[b][i];
@@ -111,8 +112,10 @@ public class Model
 			}
 		}
 		
-		//Give temp values to adjList and edge
-		for (int i = 0; i < adjList[a].length; i++)
+		//Give temp values to adjList and edge, allocate new space
+		adjList[a] = new int[tempAdjList.length];
+		edge[a] = new int[tempEdge.length];
+		for (int i = 0; i < tempAdjList.length; i++)
 		{
 			adjList[a][i] = tempAdjList[i];
 			edge[a][i] = tempEdge[i];
