@@ -23,16 +23,18 @@ public class Model
 	private static final int S = 18;
 	private static final int T = 19;
 	private static final int U = 20;
-	private static final int W = 21;
-	private static final int X = 22;
-	private static final int Y = 23;
-	private static final int Z = 24;
-	static int V = 11; //Number of starting nodes
+	private static final int V = 21;
+	private static final int W = 22;
+	private static final int X = 23;
+	private static final int Y = 24;
+	private static final int Z = 25;
+	static int NODES = 11; //Number of starting nodes
+	int adjList[][] = new int[NODES][];//[NODES-1]; list of nodes adjacant to
+	int[][] edge = new int[NODES][];//[NODES-1]; list of edge NAMES, corresponds to adjList at same index
 	
 	public Model()
 	{
-		int adjList[][] = new int[V][];//[V-1];
-		int[][] edge = new int[V][];//[V-1];
+		
 
 		//Level 1 model
 		adjList[A] = new int[]{B, D};
@@ -57,5 +59,19 @@ public class Model
 		edge[J] = new int[] {4, 2, 1};
 		adjList[K] = new int[] {C, J};
 		edge[K] = new int[] {4, 1};
+	}
+	
+	void lookForEdgesToLose(int line)
+	{
+		for (int i = 0; i < V; i++)
+		{
+			for (int j = 0; i < edge[i].length; j++)
+				if (edge[i][j] == line) fuseNodes(i, edge[i][j]);
+		}
+	}
+	
+	void fuseNodes(int a, int b)
+	{
+	
 	}
 }
