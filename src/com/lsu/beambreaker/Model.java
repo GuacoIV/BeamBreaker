@@ -1,5 +1,8 @@
 package com.lsu.beambreaker;
 
+import android.content.Context;
+import android.widget.Toast;
+
 public class Model
 {
 	private static final int A = 0;
@@ -31,11 +34,14 @@ public class Model
 	static int NODES = 11; //Number of starting nodes
 	int adjList[][] = new int[NODES][];//[NODES-1]; list of nodes adjacant to
 	int[][] edge = new int[NODES][];//[NODES-1]; list of edge NAMES, corresponds to adjList at same index
+	int startNode = B;
+	int endNode = H;
+	Context context;
 	
-	public Model()
+	public Model(Context context)
 	{
+		this.context = context;
 		
-
 		//Level 1 model
 		adjList[A] = new int[]{B, D};
 		edge[A] = new int[]{2, 1};
@@ -73,17 +79,49 @@ public class Model
 	void fuseNodes(int a, int b)
 	{
 		//Give all of b's edges to a
+		
+		//Holding area
+		int tempAdjList[] = new int[adjList[a].length + adjList[b].length];
+		int tempEdge[] = new int[edge[a].length + edge[b].length];
+		
+		//Get a's current values
+		for (int i = 0; i < adjList[a].length; i++)
+		{
+			tempAdjList[i] = adjList[a][i];
+			tempEdge[i] = edge[a][i];
+		}
+		
 		for (int i = 0; i < adjList[b].length; i++)
 		{
 			if (adjList[b][i] != a && adjList[b][i] != -1)
 			{
-				adjList[a][adjList[a].length + i] = adjList[b][i];
-				edge[a][edge[a].length + i] = edge[b][i];
+				tempAdjList[adjList[a].length + i] = adjList[b][i];
+				tempEdge[edge[a].length + i] = edge[b][i];
+				
+				//if b had the start or end circle, give it to a
+				if (startNode==b) startNode = a;
+				if (endNode==a) endNode = a;
+				
+				//Check for win
+				if (a==b) showWinMessage();
 				
 				//Mark b as dead
 				adjList[b][i] = -1;
 				edge[b][i] = -1;
 			}
 		}
+		
+		//Give temp values to adjList and edge
+		for (int i = 0; i < adjList[a].length; i++)
+		{
+			adjList[a][i] = tempAdjList[i];
+			edge[a][i] = tempEdge[i];
+		}
+	}
+	
+	void showWinMessage()
+	{
+		Toast winMessage = Toast.makeText(context, "You win!!!", Toast.LENGTH_LONG);
+		winMessage.show();
 	}
 }

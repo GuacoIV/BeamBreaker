@@ -25,6 +25,7 @@ public class MyCanvas extends View
 	float vertices[];
 	int linesZapped = 0;
 	int vIndex = 0;
+	Model model;
 	public MyCanvas(Context context)
 	{
 		super(context);
@@ -32,7 +33,7 @@ public class MyCanvas extends View
 		height = getResources().getDisplayMetrics().heightPixels - BeamBreaker.getNavigationBarHeight(context) - 40;
 		points = new float[]{0, 0, width, height, width/3, 0, width/3 + width/5, height, width, 0, 0, height, 0, height - height/7, width, height - height/7};
 		findVertices(vertices);
-		Model model = new Model();
+		model = new Model(context);
 	}
 
 	@Override
@@ -94,6 +95,9 @@ public class MyCanvas extends View
 								 points[points.length - (2 +(4*k))] = -1;
 								 points[points.length - (1 +(4*k))] = -1;
 							 }
+							 
+							 //Fuse the nodes in the model
+							 model.lookForEdgesToLose((i/4)+1); //+1 because my line names in the model are indexed from 1
 							 break;
 						 }
 					 }
