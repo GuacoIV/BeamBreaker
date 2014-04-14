@@ -107,10 +107,10 @@ public class Model
 				
 				//if b had the start or end circle, give it to a
 				if (startNode==b) startNode = a;
-				if (endNode==a) endNode = a;
+				if (endNode==b) endNode = a;
 				
 				//Check for win
-				if (a==b) showWinMessage();
+				if (startNode==endNode) showWinMessage();
 				
 				//Mark b as dead
 				adjList[b][i] = -1;
