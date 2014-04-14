@@ -69,10 +69,16 @@ public class Model
 	
 	void lookForEdgesToLose(int line)
 	{
-		for (int i = 0; i < V; i++)
+		for (int i = 0; i < NODES; i++)
 		{
-			for (int j = 0; i < edge[i].length; j++)
-				if (edge[i][j] == line) fuseNodes(i, adjList[i][j]);
+			for (int j = 0; j < edge[i].length; j++)
+			{
+				if (edge[i][j] == line)
+				{
+					fuseNodes(i, adjList[i][j]);
+					break;
+				}
+			}
 		}
 	}
 	

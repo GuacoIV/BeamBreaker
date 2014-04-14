@@ -84,7 +84,7 @@ public class MyCanvas extends View
 							 Log.d("touch", "You touched line " + i/4);
 							 linesZapped++;
 							 //Zap it
-							 for (int k = i; k < points.length - 4; k++)
+							 /*for (int k = i; k < points.length - 4; k++)
 							 {
 								 points[k] = points[k+4];
 							 }
@@ -94,7 +94,11 @@ public class MyCanvas extends View
 								 points[points.length - (3 +(4*k))] = -1;
 								 points[points.length - (2 +(4*k))] = -1;
 								 points[points.length - (1 +(4*k))] = -1;
-							 }
+							 }*/
+							 points[i] = -1;
+							 points[i+1] = -1;
+							 points[i+2] = -1;
+							 points[i+3] = -1;
 							 
 							 //Fuse the nodes in the model
 							 model.lookForEdgesToLose((i/4)+1); //+1 because my line names in the model are indexed from 1
