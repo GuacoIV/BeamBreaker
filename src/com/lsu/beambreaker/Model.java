@@ -110,7 +110,11 @@ public class Model
 				if (endNode==b) endNode = a;
 				
 				//Check for win
-				if (startNode==endNode) showWinMessage();
+				if (startNode==endNode) 
+				{
+					showWinMessage();
+					break;
+				}
 				
 				//Mark b as dead
 				adjList[b][i] = -1;
