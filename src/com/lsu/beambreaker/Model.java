@@ -66,12 +66,24 @@ public class Model
 		for (int i = 0; i < V; i++)
 		{
 			for (int j = 0; i < edge[i].length; j++)
-				if (edge[i][j] == line) fuseNodes(i, edge[i][j]);
+				if (edge[i][j] == line) fuseNodes(i, adjList[i][j]);
 		}
 	}
 	
 	void fuseNodes(int a, int b)
 	{
-	
+		//Give all of b's edges to a
+		for (int i = 0; i < adjList[b].length; i++)
+		{
+			if (adjList[b][i] != a && adjList[b][i] != -1)
+			{
+				adjList[a][adjList[a].length + i] = adjList[b][i];
+				edge[a][edge[a].length + i] = edge[b][i];
+				
+				//Mark b as dead
+				adjList[b][i] = -1;
+				edge[b][i] = -1;
+			}
+		}
 	}
 }
