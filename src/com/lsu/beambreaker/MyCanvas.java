@@ -33,7 +33,7 @@ public class MyCanvas extends View
 		height = getResources().getDisplayMetrics().heightPixels - BeamBreaker.getNavigationBarHeight(context) - 40;
 		points = new float[]{0, 0, width, height, width/3, 0, width/3 + width/5, height, width, 0, 0, height, 0, height - height/7, width, height - height/7};
 		findVertices(vertices);
-		model = new Model(context);
+		model = new Model(context, 1);
 	}
 
 	@Override

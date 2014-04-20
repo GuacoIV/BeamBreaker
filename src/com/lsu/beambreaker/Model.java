@@ -38,33 +38,70 @@ public class Model
 	int endNode = H;
 	Context context;
 	
-	public Model(Context context)
+	public Model(Context context, int level)
 	{
 		this.context = context;
-		
-		//Level 1 model
-		adjList[A] = new int[]{B, D};
-		edge[A] = new int[]{2, 1};
-		adjList[B] = new int[] {A, C, E};
-		edge[B] = new int[] {2, 3, 1};
-		adjList[C] = new int[] {B, G, K};
-		edge[C] = new int[] {3, 1, 4};
-		adjList[D] = new int[] {A, E, F, H};
-		edge[D] = new int[] {1, 2, 3, 4};
-		adjList[E] = new int[] {B, D, G};
-		edge[E] = new int[] {1, 2, 3};
-		adjList[F] = new int[] {D, G, I};
-		edge[F] = new int[] {3, 2, 4};
-		adjList[G] = new int[] {C, E, F, J};
-		edge[G] = new int[] {1, 3, 2, 4};
-		adjList[H] = new int[] {D, I};
-		edge[H] = new int[] {4, 3};
-		adjList[I] = new int[] {F, H, J};
-		edge[I] = new int[] {4, 3, 2};
-		adjList[J] = new int[] {G, I, K};
-		edge[J] = new int[] {4, 2, 1};
-		adjList[K] = new int[] {C, J};
-		edge[K] = new int[] {4, 1};
+		switch (level)
+		{
+			//Level 1 model
+			case 1:
+				adjList[A] = new int[]{B, D};
+				edge[A] = new int[]{2, 1};
+				adjList[B] = new int[] {A, C, E};
+				edge[B] = new int[] {2, 3, 1};
+				adjList[C] = new int[] {B, G, K};
+				edge[C] = new int[] {3, 1, 4};
+				adjList[D] = new int[] {A, E, F, H};
+				edge[D] = new int[] {1, 2, 3, 4};
+				adjList[E] = new int[] {B, D, G};
+				edge[E] = new int[] {1, 2, 3};
+				adjList[F] = new int[] {D, G, I};
+				edge[F] = new int[] {3, 2, 4};
+				adjList[G] = new int[] {C, E, F, J};
+				edge[G] = new int[] {1, 3, 2, 4};
+				adjList[H] = new int[] {D, I};
+				edge[H] = new int[] {4, 3};
+				adjList[I] = new int[] {F, H, J};
+				edge[I] = new int[] {4, 3, 2};
+				adjList[J] = new int[] {G, I, K};
+				edge[J] = new int[] {4, 2, 1};
+				adjList[K] = new int[] {C, J};
+				edge[K] = new int[] {4, 1};
+				break;
+			case 2:
+				adjList[A] = new int[]{B, E};
+				edge[A] = new int[]{1, 4};
+				adjList[B] = new int[]{A, C, F};
+				edge[B] = new int[]{1, 2, 4};
+				adjList[C] = new int[]{B, D, G};
+				edge[C] = new int[]{2, 3, 4};
+				adjList[D] = new int[]{C, H};
+				edge[D] = new int[]{3, 4};
+				adjList[E] = new int[]{A, F, J};
+				edge[E] = new int[]{4, 1, 5};
+				adjList[F] = new int[]{B, E, G, K};
+				edge[F] = new int[]{4, 1, 2, 5};
+				adjList[G] = new int[]{C, F, H};
+				edge[G] = new int[]{4, 2, 3};
+				adjList[H] = new int[]{D, G, I, M};
+				edge[H] = new int[]{4, 3, 2, 5};
+				adjList[I] = new int[]{F, H, L};
+				edge[I] = new int[]{3, 2, 5};
+				adjList[J] = new int[]{E, K, N, O};
+				edge[J] = new int[]{5, 1, 6, 3};
+				adjList[K] = new int[]{F, J, L};
+				edge[K] = new int[]{5, 1, 3};
+				adjList[L] = new int[]{I, K, M, O};
+				edge[L] = new int[]{5, 3, 2, 1};
+				adjList[M] = new int[]{H, L};
+				edge[M] = new int[]{5, 2};
+				adjList[N] = new int[]{J, P};
+				edge[N] = new int[]{6, 3};
+				adjList[O] = new int[]{J, L, P};
+				edge[O] = new int[]{3, 1, 6};
+				adjList[P] = new int[]{N, O};
+				edge[P] = new int[]{3, 6};
+		}
 	}
 	
 	void lookForEdgesToLose(int line)
