@@ -17,17 +17,17 @@ public class BeamBreaker extends Activity
 	MyCanvas myCanvas;
 	RelativeLayout parentLayout;
 	LayoutParams params;
+	int currentLevel;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		myCanvas = new MyCanvas(this);
+		currentLevel = 1;
+		myCanvas = new MyCanvas(this, currentLevel);
 		setContentView(R.layout.activity_beam_breaker);
 		parentLayout = (RelativeLayout) findViewById(R.id.ParentLayout);
 		params = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		parentLayout.addView(myCanvas, 0, params);
-		
-
 	}
 
 	@Override
@@ -42,7 +42,19 @@ public class BeamBreaker extends Activity
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	    case R.id.Redraw:
-	        myCanvas = new MyCanvas(this);
+	        myCanvas = new MyCanvas(this, currentLevel);
+	        parentLayout.removeAllViews();
+	        parentLayout.addView(myCanvas, 0, params);
+	        myCanvas.invalidate();
+	        return true;
+	    case R.id.Level1:
+	    	myCanvas = new MyCanvas(this, 1);
+	        parentLayout.removeAllViews();
+	        parentLayout.addView(myCanvas, 0, params);
+	        myCanvas.invalidate();
+	        return true;
+	    case R.id.Level2:
+	    	myCanvas = new MyCanvas(this, 2);
 	        parentLayout.removeAllViews();
 	        parentLayout.addView(myCanvas, 0, params);
 	        myCanvas.invalidate();

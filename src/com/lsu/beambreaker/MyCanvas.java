@@ -26,14 +26,27 @@ public class MyCanvas extends View
 	int linesZapped = 0;
 	int vIndex = 0;
 	Model model;
-	public MyCanvas(Context context)
+	int level;
+	public MyCanvas(Context context, int level)
 	{
 		super(context);
 		Random r = new Random();
 		height = getResources().getDisplayMetrics().heightPixels - BeamBreaker.getNavigationBarHeight(context) - 40;
-		points = new float[]{0, 0, width, height, width/3, 0, width/3 + width/5, height, width, 0, 0, height, 0, height - height/7, width, height - height/7};
+		this.level = level;
+		switch (level)
+		{
+		case 1:
+			points = new float[]{0, 0, width, height, width/3, 0, width/3 + width/5, height, width, 0, 0, height, 0, height - height/7, width, height - height/7};
+			break;
+		case 2:
+			points = new float[]{0, 0, width, height, width/2, 0, width, height/2, width, 0, 0, height, 0, height/8, width, height/8, 0, height/3, width, height/3, 0, height/2, width/2, height};
+			break;
+		default:
+			points = new float[]{0, 0, width, height, width/3, 0, width/3 + width/5, height, width, 0, 0, height, 0, height - height/7, width, height - height/7};
+			break;
+		}
 		findVertices(vertices);
-		model = new Model(context, 1);
+		model = new Model(context, level);
 	}
 
 	@Override
@@ -51,10 +64,21 @@ public class MyCanvas extends View
 			canvas.drawCircle(vertices[i], vertices[i+1], 5, paint);
 		
 		//Draw start and end dots
-		paint.setColor(Color.GREEN);
-		canvas.drawCircle(width - width/3, height/4, 8, paint);
-		paint.setColor(Color.RED);
-		canvas.drawCircle(width/13, height - height/10, 8, paint);
+		switch (level)
+		{
+		case 1:
+			paint.setColor(Color.GREEN);
+			canvas.drawCircle(width - width/3, height/4, 8, paint);
+			paint.setColor(Color.RED);
+			canvas.drawCircle(width/13, height - height/10, 8, paint);
+			break;
+		case 2:
+			paint.setColor(Color.GREEN);
+			canvas.drawCircle(width - width/30, height/15, 8, paint);
+			paint.setColor(Color.RED);
+			canvas.drawCircle(width/3, height/2, 8, paint);
+			break;
+		}
 		super.onDraw(canvas);
 	}
 
@@ -115,9 +139,9 @@ public class MyCanvas extends View
 	
 	public void findVertices(float[] vertices)
 	{
-		this.vertices = new float[30];
-		boolean [][] IJCombos = new boolean[30][30];
-		int intersectingLines[] = new int[30];
+		this.vertices = new float[50];
+		boolean [][] IJCombos = new boolean[50][50];
+		int intersectingLines[] = new int[50];
 		vIndex = 0;
 		//Pick a line
 		for (int i = 0; i < points.length-3; i+=4)

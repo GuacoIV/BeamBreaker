@@ -31,11 +31,11 @@ public class Model
 	private static final int X = 23;
 	private static final int Y = 24;
 	private static final int Z = 25;
-	static int NODES = 11; //Number of starting nodes
-	int adjList[][] = new int[NODES][];//[NODES-1]; list of nodes adjacant to
-	int[][] edge = new int[NODES][];//[NODES-1]; list of edge NAMES, corresponds to adjList at same index
-	int startNode = B;
-	int endNode = H;
+	static int NODES; //Number of starting nodes
+	int adjList[][];//[][] = new int[NODES][];//[NODES-1]; list of nodes adjacant to
+	int edge[][]; //= new int[NODES][];//[NODES-1]; list of edge NAMES, corresponds to adjList at same index
+	int startNode;
+	int endNode;
 	Context context;
 	
 	public Model(Context context, int level)
@@ -45,6 +45,9 @@ public class Model
 		{
 			//Level 1 model
 			case 1:
+				NODES = 11;
+				adjList = new int[NODES][];
+				edge = new int[NODES][];
 				adjList[A] = new int[]{B, D};
 				edge[A] = new int[]{2, 1};
 				adjList[B] = new int[] {A, C, E};
@@ -67,8 +70,13 @@ public class Model
 				edge[J] = new int[] {4, 2, 1};
 				adjList[K] = new int[] {C, J};
 				edge[K] = new int[] {4, 1};
+				startNode = B;
+				endNode = H;
 				break;
 			case 2:
+				NODES = 16;
+				adjList = new int[NODES][];
+				edge = new int[NODES][];
 				adjList[A] = new int[]{B, E};
 				edge[A] = new int[]{1, 4};
 				adjList[B] = new int[]{A, C, F};
@@ -101,6 +109,8 @@ public class Model
 				edge[O] = new int[]{3, 1, 6};
 				adjList[P] = new int[]{N, O};
 				edge[P] = new int[]{3, 6};
+				startNode = D;
+				endNode = J;
 		}
 	}
 	

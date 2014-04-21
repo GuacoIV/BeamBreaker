@@ -6,5 +6,7 @@
         android:showAsAction="never"
         android:title="@string/action_settings"/>
     <item android:id="@+id/Redraw" android:title="Redraw"></item>
+    <item android:id="@+id/Level1" android:title="Level 1"></item>
+    <item android:id="@+id/Level2" android:title="Level 2"></item>
 
 </menu>
